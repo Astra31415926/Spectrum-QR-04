@@ -18,7 +18,6 @@
             --primary-orange: #FF6200;
             --primary-green: #00FF9D;
             --metal-dark: #121212;
-            --metal-light: #2a2a2a;
             --text-main: #e0e0e0;
         }
 
@@ -33,7 +32,7 @@
             color: var(--text-main);
         }
 
-        /* --- Rusted Metal Background Texture --- */
+        /* --- Rusted Metal Background --- */
         body::before {
             content: "";
             position: fixed; inset: 0;
@@ -51,27 +50,19 @@
             flex-direction: column;
         }
 
-        /* --- Navigation Styles --- */
+        /* --- Navigation --- */
         .nav-bar {
-            height: 60px;
-            min-height: 60px;
-            background: rgba(20,20,20,0.9);
-            backdrop-filter: blur(10px);
+            height: 60px; min-height: 60px;
+            background: rgba(20,20,20,0.9); backdrop-filter: blur(10px);
             border-bottom: 1px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            z-index: 100;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; z-index: 100;
         }
         .bottom-nav {
-            height: 70px;
-            min-height: 70px;
+            height: 70px; min-height: 70px;
             border-top: 1px solid #333;
             background: rgba(10,10,10,0.95);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+            display: flex; justify-content: space-around; align-items: center;
             z-index: 100;
         }
         .nav-btn {
@@ -80,27 +71,23 @@
         }
         .nav-btn:active, .nav-btn.active { color: var(--primary-orange); }
 
-        /* --- Screens Layout --- */
+        /* --- Screens --- */
         .screen {
             flex: 1;
-            display: none;
-            flex-direction: column;
-            height: 100%;
-            overflow: hidden;
+            display: none; flex-direction: column;
+            height: 100%; overflow: hidden;
         }
         .screen.active { display: flex; }
 
-        /* --- Retro-Tech Buttons --- */
+        /* --- Buttons --- */
         .btn-retro {
             background: linear-gradient(180deg, #333 0%, #111 100%);
             border: 1px solid #555;
             box-shadow: 0 4px 0 #000, inset 0 1px 0 rgba(255,255,255,0.1);
             color: #ddd;
-            padding: 12px 24px;
-            border-radius: 4px;
+            padding: 12px 24px; border-radius: 4px;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
+            font-weight: 700; text-transform: uppercase;
             cursor: pointer;
             transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
             letter-spacing: 1px;
@@ -111,56 +98,36 @@
         .btn-scan { background: linear-gradient(180deg, #00FF9D 0%, #00CC7D 100%); border-color: #00FF9D; color: #000; }
         .btn-hidden { display: none; }
 
-        /* --- Generator Layout (Keyboard Friendly) --- */
-        .gen-layout {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        /* QR Zone: Fixed height at top, always visible */
+        /* --- Layouts --- */
+        .gen-layout { flex: 1; display: flex; flex-direction: column; }
         .qr-zone {
-            height: 35vh; 
-            min-height: 220px;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 35vh; min-height: 220px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
             padding: 16px;
         }
         .qr-frame {
-            background: #111;
-            border: 2px solid #444;
+            background: #111; border: 2px solid #444;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
             width: 100%; height: 100%;
             max-width: 280px; max-height: 280px;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
-        /* Input Zone: Takes remaining space, centers content */
         .input-zone {
-            flex: 1;
-            padding: 20px;
-            display: flex; flex-direction: column;
-            gap: 16px;
-            overflow-y: auto;
-            justify-content: center; 
-            align-items: center;
+            flex: 1; padding: 20px;
+            display: flex; flex-direction: column; gap: 16px;
+            overflow-y: auto; justify-content: center; align-items: center;
         }
 
         /* --- Inputs --- */
         .text-input {
-            background: #0a0a0a;
-            border: 2px solid #333;
-            color: #fff;
-            padding: 16px;
-            font-size: 16px; /* Prevents zoom */
-            border-radius: 4px;
-            outline: none;
-            resize: none;
+            background: #0a0a0a; border: 2px solid #333;
+            color: #fff; padding: 16px;
+            font-size: 16px; border-radius: 4px;
+            outline: none; resize: none;
             transition: border-color 0.2s;
             font-family: 'Share Tech Mono', monospace;
-            width: 100%;
-            max-width: 350px; /* Narrower as requested */
+            width: 100%; max-width: 350px;
         }
         .text-input:focus { border-color: var(--primary-orange); box-shadow: 0 0 10px rgba(255,98,0,0.2); }
 
@@ -174,12 +141,10 @@
         #video-feed { width: 100%; height: 100%; object-fit: cover; }
         #freeze-frame { position: absolute; width: 100%; height: 100%; object-fit: contain; display: none; }
         
-        /* Viewfinder */
         .viewfinder-box {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 70%; 
-            padding-bottom: 70%; /* Force Square */
+            width: 70%; padding-bottom: 70%; /* Square */
             pointer-events: none;
         }
         .corner { position: absolute; width: 30px; height: 30px; border-color: rgba(255,255,255,0.5); transition: all 0.2s; }
@@ -188,14 +153,13 @@
         .bl { bottom: 0; left: 0; border-bottom: 4px solid; border-left: 4px solid; }
         .br { bottom: 0; right: 0; border-bottom: 4px solid; border-right: 4px solid; }
         
-        .viewfinder-box.locked .corner { border-color: var(--primary-green); box-shadow: 0 0 15px var(--primary-green); transform: scale(1.1); }
+        .viewfinder-box.hunting .corner { border-color: #00FF9D; box-shadow: 0 0 15px #00FF9D; animation: pulse 1.5s infinite alternate; }
+        @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
         
-        /* Flash FX */
         .flash-fx { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 200; }
-        .flash-fx.active { animation: flash-anim 0.3s ease-out; }
-        @keyframes flash-anim { 0% { opacity: 0; } 30% { opacity: 0.8; } 100% { opacity: 0; } }
+        .flash-fx.active { animation: flash 0.3s ease-out; }
+        @keyframes flash { 0% { opacity: 0; } 30% { opacity: 0.8; } 100% { opacity: 0; } }
 
-        /* Scan Bottom Panel */
         .scan-panel {
             background: rgba(0,0,0,0.9); padding: 16px; border-top: 1px solid #333;
         }
@@ -213,6 +177,9 @@
         .scan-indicator.r.active { background: #FF004D; box-shadow: 0 0 8px #FF004D; }
         .scan-indicator.g.active { background: #00FF41; box-shadow: 0 0 8px #00FF41; }
         .scan-indicator.b.active { background: #0088FF; box-shadow: 0 0 8px #0088FF; }
+        .scan-res-box textarea.locked-r { border-color: #FF004D; }
+        .scan-res-box textarea.locked-g { border-color: #00FF41; }
+        .scan-res-box textarea.locked-b { border-color: #0088FF; }
 
     </style>
 </head>
@@ -220,7 +187,7 @@
 
 <div id="app">
     
-    <!-- TOP NAVIGATION (Fixed) -->
+    <!-- TOP NAVIGATION -->
     <header class="nav-bar">
         <div class="nav-btn" id="btn-back" style="visibility:hidden;" onclick="navBack()">
             <span style="font-size: 24px;">←</span>
@@ -237,11 +204,20 @@
         <!-- SCREEN: MAIN -->
         <div id="scr-main" class="screen active">
             <div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
-                <p class="text-sm mb-8 text-zinc-400 max-w-xs">Create and scan ornamental QR codes with multi-layer data capacity.</p>
+                <p class="text-sm mb-8 text-zinc-400 max-w-xs">Create and scan ornamental QR codes.</p>
+                
+                <!-- Primary Actions -->
                 <div class="flex gap-4 w-full max-w-sm">
                     <button class="btn-retro btn-create flex-1" onclick="navTo('create-opt')">+ Create</button>
-                    <button class="btn-retro btn-scan flex-1" onclick="openScanner()">Scan</button>
+                    <button class="btn-retro btn-scan flex-1" onclick="toggleScanMode()">Scan</button>
                 </div>
+                
+                <!-- Secondary Scan Actions (Hidden initially) -->
+                <div id="scan-split-actions" class="mt-4 flex gap-4 w-full max-w-sm btn-hidden">
+                    <button class="btn-retro flex-1" onclick="ScannerEngine.startCamera()">Camera</button>
+                    <button class="btn-retro flex-1" onclick="document.getElementById('file-input').click()">Gallery</button>
+                </div>
+                <input type="file" id="file-input" accept="image/*" style="display:none" onchange="ScannerEngine.handleFile(event)">
             </div>
         </div>
 
@@ -253,21 +229,16 @@
             </div>
         </div>
 
-        <!-- SCREEN: GENERATOR ORNAMENT (New Layout) -->
+        <!-- SCREEN: GENERATOR ORNAMENT -->
         <div id="scr-gen-ornament" class="screen">
             <div class="gen-layout">
-                <!-- QR Zone: Fixed at Top -->
                 <div class="qr-zone">
                     <div class="qr-frame">
                         <canvas id="canvas-ornament" width="512" height="512" style="width:100%; height:100%; object-fit:contain;"></canvas>
                     </div>
                 </div>
-                
-                <!-- Input Zone: Centered in remaining space -->
                 <div class="input-zone">
                     <textarea id="input-ornament" class="text-input h-24" placeholder="Enter text..." oninput="handleOrnamentInput()"></textarea>
-                    
-                    <!-- Buttons hidden by default -->
                     <div id="ornament-actions" class="flex gap-4 mt-4 w-full btn-hidden" style="max-width: 350px;">
                         <button class="btn-retro flex-1" onclick="regenerateOrnament()">Regenerate</button>
                         <button id="btn-save-orn" class="btn-retro flex-1" onclick="saveImage('ornament')" disabled>Save</button>
@@ -285,23 +256,23 @@
                     </div>
                 </div>
                 <div class="input-zone">
-                    <textarea id="input-r" class="text-input h-16" style="border-color:#FF004D;" placeholder="RED Channel" oninput="handle3DInput()"></textarea>
-                    <textarea id="input-g" class="text-input h-16" style="border-color:#00FF41;" placeholder="GREEN Channel" oninput="handle3DInput()"></textarea>
-                    <textarea id="input-b" class="text-input h-16" style="border-color:#0088FF;" placeholder="BLUE Channel" oninput="handle3DInput()"></textarea>
+                    <textarea id="input-r" class="text-input h-16" style="border-color:#FF004D;" placeholder="RED" oninput="handle3DInput()"></textarea>
+                    <textarea id="input-g" class="text-input h-16" style="border-color:#00FF41;" placeholder="GREEN" oninput="handle3DInput()"></textarea>
+                    <textarea id="input-b" class="text-input h-16" style="border-color:#0088FF;" placeholder="BLUE" oninput="handle3DInput()"></textarea>
                     <button id="btn-save-3d" class="btn-retro w-full mt-2" onclick="saveImage('3d')" disabled>Save</button>
                 </div>
             </div>
         </div>
 
         <!-- SCREEN: PLACEHOLDERS -->
-        <div id="scr-gallery" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">Gallery Coming Soon</div></div>
-        <div id="scr-history" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">History Coming Soon</div></div>
-        <div id="scr-tech" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">Technology Info</div></div>
+        <div id="scr-gallery" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">Gallery</div></div>
+        <div id="scr-history" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">History</div></div>
+        <div id="scr-tech" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">Technology</div></div>
         <div id="scr-contacts" class="screen"><div class="flex-1 flex items-center justify-center text-zinc-600">Contacts</div></div>
 
     </main>
 
-    <!-- BOTTOM NAVIGATION (Fixed) -->
+    <!-- BOTTOM NAVIGATION -->
     <footer class="bottom-nav">
         <div class="nav-btn" onclick="navTo('gallery')">
             <svg style="width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -324,7 +295,7 @@
     <!-- SCANNER OVERLAY -->
     <div id="scanner-overlay">
         <header class="nav-bar" style="border-bottom:0;">
-            <div class="nav-btn" onclick="closeScanner()"><span style="font-size:24px;">✕</span></div>
+            <div class="nav-btn" onclick="ScannerEngine.close()"><span style="font-size:24px;">✕</span></div>
             <h1 class="font-bold">SCANNER</h1>
             <div style="width:40px;"></div>
         </header>
@@ -333,7 +304,7 @@
             <video id="video-feed" autoplay playsinline muted></video>
             <canvas id="freeze-frame"></canvas>
             
-            <div class="viewfinder-box" id="viewfinder-corners">
+            <div class="viewfinder-box hunting" id="viewfinder-corners">
                 <div class="corner tl"></div><div class="corner tr"></div>
                 <div class="corner bl"></div><div class="corner br"></div>
             </div>
@@ -357,8 +328,8 @@
                 </div>
             </div>
             <div class="flex gap-2 mt-4">
-                <button class="btn-retro flex-1" onclick="document.getElementById('file-input').click()">Gallery</button>
-                <input type="file" id="file-input" accept="image/*" style="display:none" onchange="ScannerEngine.handleFile(event)">
+                <button class="btn-retro flex-1" onclick="ScannerEngine.resetScan()">Reset</button>
+                <button class="btn-retro flex-1" id="btn-save-scan" onclick="saveImage('scan')" disabled>Save</button>
             </div>
         </div>
     </div>
@@ -366,7 +337,6 @@
     <!-- MENU OVERLAY -->
     <div id="menu-overlay" style="position:absolute; inset:0; background:rgba(0,0,0,0.95); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:30px;">
         <a href="#" onclick="toggleMenu()" style="font-size:24px; font-family:'Orbitron';">Home</a>
-        <a href="#" onclick="toggleMenu()" style="font-size:24px; font-family:'Orbitron';">About</a>
         <button onclick="toggleMenu()" style="color:#666; margin-top:20px;">Close</button>
     </div>
 
@@ -380,7 +350,6 @@
 const UI = {
     current: 'main',
     history: ['main'],
-    
     screens: {
         main: document.getElementById('scr-main'),
         'create-opt': document.getElementById('scr-create-opt'),
@@ -397,8 +366,6 @@ const UI = {
         UI.screens[UI.current].classList.remove('active');
         UI.screens[id].classList.add('active');
         UI.current = id;
-        
-        // Show back button only if not main
         document.getElementById('btn-back').style.visibility = (id === 'main') ? 'hidden' : 'visible';
     },
 
@@ -411,9 +378,13 @@ const UI = {
         document.getElementById('btn-back').style.visibility = (prev === 'main') ? 'hidden' : 'visible';
     }
 };
+
 const navTo = (id) => UI.navTo(id);
 const navBack = () => UI.navBack();
 const toggleMenu = () => document.getElementById('menu-overlay').classList.toggle('hidden');
+const toggleScanMode = () => {
+    document.getElementById('scan-split-actions').classList.toggle('btn-hidden');
+};
 
 // ==========================================
 // 2. SPRITE LIBRARY (Ornament Logic)
@@ -448,13 +419,11 @@ const SPRITE_LIB = [
 const GenEngine = {
     seed: Date.now(),
     
-    // --- Ornament Logic ---
+    // --- Ornament ---
     handleOrnamentInput() {
         const val = document.getElementById('input-ornament').value;
         const actionsDiv = document.getElementById('ornament-actions');
         const saveBtn = document.getElementById('btn-save-orn');
-
-        // Show/Hide Logic
         if (val.length > 0) {
             actionsDiv.classList.remove('btn-hidden');
             saveBtn.disabled = false;
@@ -462,34 +431,26 @@ const GenEngine = {
             actionsDiv.classList.add('btn-hidden');
             saveBtn.disabled = true;
         }
-        
         GenEngine.generateOrnament();
     },
-
     regenerateOrnament() {
         GenEngine.seed = Math.random();
         GenEngine.generateOrnament();
     },
-
     seededRandom() {
         let x = Math.sin(GenEngine.seed++) * 10000;
         return x - Math.floor(x);
     },
-
     generateOrnament() {
         const text = document.getElementById('input-ornament').value;
         const canvas = document.getElementById('canvas-ornament');
         const ctx = canvas.getContext('2d');
-        
-        if(!text) {
-            ctx.fillStyle="#000"; ctx.fillRect(0,0,512,512); return;
-        }
+        if(!text) { ctx.fillStyle="#000"; ctx.fillRect(0,0,512,512); return; }
         
         try {
             const qr = qrcode(0, 'M');
             qr.addData(unescape(encodeURIComponent(text)));
             qr.make();
-            
             const modCount = qr.getModuleCount();
             const quietZone = 4;
             const totalSize = modCount + quietZone * 2;
@@ -498,13 +459,11 @@ const GenEngine = {
             ctx.fillStyle = "#000"; ctx.fillRect(0,0,512,512);
             ctx.globalCompositeOperation = "screen";
 
-            // Generate Art Layers
             const gridR = GenEngine.buildGrid(totalSize);
             const gridG = GenEngine.buildGrid(totalSize);
 
             ctx.fillStyle = "#FF0000";
             GenEngine.drawGrid(ctx, gridR, totalSize, cellSize);
-            
             ctx.fillStyle = "#00FF00";
             GenEngine.drawGrid(ctx, gridG, totalSize, cellSize);
             
@@ -518,10 +477,8 @@ const GenEngine = {
                 }
             }
             ctx.globalCompositeOperation = "source-over";
-
         } catch(e) {}
     },
-
     buildGrid(size) {
         const grid = Array(size).fill(0).map(() => Array(size).fill(0));
         const center = Math.floor(size/2);
@@ -539,7 +496,6 @@ const GenEngine = {
                     for(let px=0; px<7; px++) {
                         let sX = flipX ? (6-px) : px;
                         let sY = flipY ? (6-py) : py;
-                        
                         if((pattern[sY] >> (6-sX)) & 1) {
                             let xRel = (bx*7) + px - 3;
                             let yRel = (by*7) + py - 3;
@@ -549,7 +505,6 @@ const GenEngine = {
                 }
             }
         }
-
         octantMap.forEach((v, k) => {
             const [x, y] = k.split(',').map(Number);
             const points = [[x, y], [y, x], [-x, y], [-y, x], [x, -y], [y, -x], [-x, -y], [-y, -x]];
@@ -560,12 +515,11 @@ const GenEngine = {
         });
         return grid;
     },
-
     drawGrid(ctx, grid, size, cell) {
         for(let r=0; r<size; r++) for(let c=0; c<size; c++) if(grid[r][c]) ctx.fillRect(c*cell, r*cell, cell+0.5, cell+0.5);
     },
 
-    // --- 3D Logic ---
+    // --- 3D / SCI Logic (From provided snippet) ---
     handle3DInput() {
         const r = document.getElementById('input-r').value;
         const g = document.getElementById('input-g').value;
@@ -573,13 +527,8 @@ const GenEngine = {
         document.getElementById('btn-save-3d').disabled = !(r && g && b);
         GenEngine.generate3D();
     },
-
     generate3D() {
-        const texts = [
-            document.getElementById('input-r').value,
-            document.getElementById('input-g').value,
-            document.getElementById('input-b').value
-        ];
+        const texts = [document.getElementById('input-r').value, document.getElementById('input-g').value, document.getElementById('input-b').value];
         if(!texts.some(t=>t)) return;
         
         let maxVer = 1;
@@ -608,7 +557,11 @@ const regenerateOrnament = () => GenEngine.regenerateOrnament();
 const handle3DInput = () => GenEngine.handle3DInput();
 
 function saveImage(mode) {
-    const canvas = mode === 'ornament' ? document.getElementById('canvas-ornament') : document.getElementById('canvas-3d');
+    let canvas;
+    if (mode === 'ornament') canvas = document.getElementById('canvas-ornament');
+    else if (mode === '3d') canvas = document.getElementById('canvas-3d');
+    else canvas = document.getElementById('freeze-frame'); // For scan result
+    
     const link = document.createElement('a');
     link.download = `ornament_${Date.now()}.png`;
     link.href = canvas.toDataURL();
@@ -616,18 +569,22 @@ function saveImage(mode) {
 }
 
 // ==========================================
-// 4. SCANNER ENGINE (QRGB-13 Integration)
+// 4. SCANNER ENGINE (From Provided Snippet)
 // ==========================================
-
 const ScannerEngine = {
     state: {
         scanning: false,
         locked: { r: false, g: false, b: false },
-        activeSearch: false, standardFailCount: 0, AUTO_TRIGGER_THRESHOLD: 90, time: 0,
+        results: { r: null, g: null, b: null },
+        activeSearch: false,
+        standardFailCount: 0,
+        AUTO_TRIGGER_THRESHOLD: 45,
+        time: 0,
+        channelIndex: 0,
         config: {
-            R: { offset: 0, gain: 1.0, k1: 0.10, k2: 0.20 },
-            G: { offset: 0, gain: 1.0, k1: 0.18, k2: 0.33 },
-            B: { offset: 0, gain: 1.0, k1: 0.05, k2: 0.13 }
+            R: { k1: 0.10, k2: 0.20, gain: 1.0, offset: 0 },
+            G: { k1: 0.18, k2: 0.33, gain: 1.0, offset: 0 },
+            B: { k1: 0.05, k2: 0.13, gain: 1.0, offset: 0 }
         }
     },
     els: {},
@@ -637,8 +594,8 @@ const ScannerEngine = {
             video: document.getElementById('video-feed'),
             freeze: document.getElementById('freeze-frame'),
             fCtx: document.getElementById('freeze-frame').getContext('2d', { willReadFrequently: true }),
-            canvas: document.getElementById('canvas-3d'), // Reuse 3D canvas for processing context
-            ctx: document.getElementById('canvas-3d').getContext('2d', { willReadFrequently: true }),
+            canvas: document.getElementById('freeze-frame'), // Reuse freeze canvas for processing context
+            ctx: document.getElementById('freeze-frame').getContext('2d', { willReadFrequently: true }),
             res: { r: document.getElementById('res-r'), g: document.getElementById('res-g'), b: document.getElementById('res-b') },
             ind: { r: document.getElementById('ind-r'), g: document.getElementById('ind-g'), b: document.getElementById('ind-b') },
             viewfinder: document.getElementById('viewfinder-corners'),
@@ -649,20 +606,26 @@ const ScannerEngine = {
     open() {
         document.getElementById('scanner-overlay').style.display = 'flex';
         this.reset();
-        this.startCamera();
     },
-
+    
     close() {
         this.state.scanning = false;
         if(this.els.video.srcObject) this.els.video.srcObject.getTracks().forEach(t => t.stop());
         document.getElementById('scanner-overlay').style.display = 'none';
+        document.getElementById('scan-split-actions').classList.add('btn-hidden');
     },
-
+    
     reset() {
-        this.state = { ...this.state, locked: {r:false, g:false, b:false}, activeSearch: false, standardFailCount: 0, time: 0 };
-        Object.values(this.els.res).forEach(t => t.value = '');
+        this.state = { ...this.state, locked: {r:false, g:false, b:false}, activeSearch: false, standardFailCount: 0, time: 0, channelIndex: 0 };
+        Object.values(this.els.res).forEach(t => { t.value = ''; t.className = ''; });
         Object.values(this.els.ind).forEach(i => i.classList.remove('active'));
         Object.values(this.state.config).forEach(c => { c.gain=1.0; c.offset=0; });
+        document.getElementById('btn-save-scan').disabled = true;
+        this.els.viewfinder.classList.add('hunting');
+    },
+    
+    resetScan() {
+        this.reset();
     },
 
     async startCamera() {
@@ -698,25 +661,28 @@ const ScannerEngine = {
 
     loop() {
         if (!this.state.scanning) return;
-        let source = null;
+        let sourceCopy = null;
         
         if (this.els.video.style.display !== 'none' && this.els.video.readyState >= 2) {
             this.els.ctx.drawImage(this.els.video, 0, 0, 512, 512);
-            source = this.els.ctx.getImageData(0, 0, 512, 512);
+            sourceCopy = this.els.ctx.getImageData(0, 0, 512, 512);
         } else if (this.els.freeze.style.display !== 'none') {
-            source = this.els.fCtx.getImageData(0, 0, 512, 512);
+            sourceCopy = this.els.fCtx.getImageData(0, 0, 512, 512);
         }
 
-        if (source) {
+        if (sourceCopy) {
             if (this.state.standardFailCount > this.state.AUTO_TRIGGER_THRESHOLD && !this.state.activeSearch) {
                 this.state.activeSearch = true;
+                console.log("Switching to Active Search");
             }
 
-            const unlocked = ['R', 'G', 'B'].filter(c => !this.state.locked[c.toLowerCase()]);
-            if (unlocked.length > 0) {
-                // Round Robin
-                const ch = unlocked[0]; // Simplified: process first unlocked
-                this.processChannel(source, ch);
+            const channels = ['R', 'G', 'B'];
+            const activeChannels = channels.filter(ch => !this.state.locked[ch.toLowerCase()]);
+            
+            if (activeChannels.length > 0) {
+                const ch = activeChannels[this.state.channelIndex % activeChannels.length];
+                this.state.channelIndex++;
+                this.processChannel(sourceCopy, ch);
             } else {
                 this.state.scanning = false; // All done
                 return;
@@ -729,7 +695,6 @@ const ScannerEngine = {
         const cfg = this.state.config[ch];
         const idx = ['R', 'G', 'B'].indexOf(ch);
         
-        // Algorithm Logic
         let processedData;
         if (this.state.activeSearch) {
             this.state.time++;
@@ -749,27 +714,34 @@ const ScannerEngine = {
     },
 
     lockChannel(ch, data) {
-        if (this.state.locked[ch.toLowerCase()]) return;
-        this.state.locked[ch.toLowerCase()] = true;
-        this.state.config[ch].gain = 1.0; this.state.config[ch].offset = 0; // Reset for next time
+        const key = ch.toLowerCase();
+        if (this.state.locked[key]) return;
         
-        // UI Feedback
+        this.state.locked[key] = true;
+        this.state.results[key] = data;
+        this.state.config[ch].gain = 1.0; 
+        this.state.config[ch].offset = 0;
+        
         this.playBeep();
         this.flash();
-        this.els.viewfinder.classList.add('locked');
-        setTimeout(() => this.els.viewfinder.classList.remove('locked'), 300);
+        this.els.viewfinder.classList.remove('hunting'); // Stop animation
 
-        const key = ch.toLowerCase();
-        this.els.res[key].value = data;
-        this.els.ind[key].classList.add('active');
+        const el = this.els.res[key];
+        const ind = this.els.ind[key];
+        
+        if(el) {
+            el.value = data;
+            el.classList.add('locked-' + key);
+        }
+        if(ind) ind.classList.add('active');
 
-        // If all done
         if (this.state.locked.r && this.state.locked.g && this.state.locked.b) {
             this.state.scanning = false;
+            document.getElementById('btn-save-scan').disabled = false;
         }
     },
 
-    // Helpers
+    // --- Algorithms ---
     applyBradley(imgData, chIdx) {
         const w = imgData.width, h = imgData.height;
         const input = imgData.data;
@@ -833,14 +805,10 @@ const ScannerEngine = {
     }
 };
 
-// Init Scanner Engine on load
+// Init
 document.addEventListener('DOMContentLoaded', () => {
     ScannerEngine.init();
 });
-
-const openScanner = () => ScannerEngine.open();
-const closeScanner = () => ScannerEngine.close();
-
 </script>
 </body>
 </html>
