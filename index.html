@@ -32,7 +32,6 @@
             color: var(--text-main);
         }
 
-        /* --- Rusted Metal Background --- */
         body::before {
             content: "";
             position: fixed; inset: 0;
@@ -98,27 +97,31 @@
         .btn-scan { background: linear-gradient(180deg, #00FF9D 0%, #00CC7D 100%); border-color: #00FF9D; color: #000; }
         .btn-hidden { display: none; }
 
-        /* --- Layouts --- */
-        .gen-layout { flex: 1; display: flex; flex-direction: column; }
-        .qr-zone {
-            height: 35vh; min-height: 220px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            padding: 16px;
+        /* --- Ornament Layout (Strict) --- */
+        .ornament-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center;
+            padding: 20px;
         }
-        .qr-frame {
+        .ornament-qr-box {
+            width: 240px; height: 240px;
             background: #111; border: 2px solid #444;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            width: 100%; height: 100%;
-            max-width: 280px; max-height: 280px;
+            margin-bottom: 24px; /* Space between QR and Input */
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
+            border-radius: 8px;
         }
-        .input-zone {
-            flex: 1; padding: 20px;
-            display: flex; flex-direction: column; gap: 16px;
-            overflow-y: auto; justify-content: center; align-items: center;
+        .ornament-input-box {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
-
+        
         /* --- Inputs --- */
         .text-input {
             background: #0a0a0a; border: 2px solid #333;
@@ -127,7 +130,8 @@
             outline: none; resize: none;
             transition: border-color 0.2s;
             font-family: 'Share Tech Mono', monospace;
-            width: 100%; max-width: 350px;
+            width: 100%;
+            text-align: center;
         }
         .text-input:focus { border-color: var(--primary-orange); box-shadow: 0 0 10px rgba(255,98,0,0.2); }
 
@@ -229,17 +233,20 @@
             </div>
         </div>
 
-        <!-- SCREEN: GENERATOR ORNAMENT -->
+        <!-- SCREEN: GENERATOR ORNAMENT (Strict Layout) -->
         <div id="scr-gen-ornament" class="screen">
-            <div class="gen-layout">
-                <div class="qr-zone">
-                    <div class="qr-frame">
-                        <canvas id="canvas-ornament" width="512" height="512" style="width:100%; height:100%; object-fit:contain;"></canvas>
-                    </div>
+            <div class="ornament-layout">
+                <!-- QR Box -->
+                <div class="ornament-qr-box">
+                    <canvas id="canvas-ornament" width="512" height="512" style="width:100%; height:100%; object-fit:contain;"></canvas>
                 </div>
-                <div class="input-zone">
-                    <textarea id="input-ornament" class="text-input h-24" placeholder="Enter text..." oninput="handleOrnamentInput()"></textarea>
-                    <div id="ornament-actions" class="flex gap-4 mt-4 w-full btn-hidden" style="max-width: 350px;">
+                
+                <!-- Input Box (Centered) -->
+                <div class="ornament-input-box">
+                    <textarea id="input-ornament" class="text-input h-20" placeholder="Enter text..." oninput="handleOrnamentInput()"></textarea>
+                    
+                    <!-- Buttons (Hidden by default) -->
+                    <div id="ornament-actions" class="flex gap-4 mt-2 btn-hidden w-full">
                         <button class="btn-retro flex-1" onclick="regenerateOrnament()">Regenerate</button>
                         <button id="btn-save-orn" class="btn-retro flex-1" onclick="saveImage('ornament')" disabled>Save</button>
                     </div>
@@ -249,16 +256,14 @@
 
         <!-- SCREEN: GENERATOR 3D -->
         <div id="scr-gen-3d" class="screen">
-            <div class="gen-layout">
-                <div class="qr-zone">
-                    <div class="qr-frame">
-                        <canvas id="canvas-3d" width="512" height="512" style="width:100%; height:100%; object-fit:contain;"></canvas>
-                    </div>
+            <div class="flex-1 flex flex-col justify-center items-center p-4 gap-4">
+                <div style="width:240px; height:240px; background:#111; border:2px solid #444; box-shadow:0 0 20px rgba(0,0,0,0.8); border-radius:8px;">
+                    <canvas id="canvas-3d" width="512" height="512" style="width:100%; height:100%; object-fit:contain;"></canvas>
                 </div>
-                <div class="input-zone">
-                    <textarea id="input-r" class="text-input h-16" style="border-color:#FF004D;" placeholder="RED" oninput="handle3DInput()"></textarea>
-                    <textarea id="input-g" class="text-input h-16" style="border-color:#00FF41;" placeholder="GREEN" oninput="handle3DInput()"></textarea>
-                    <textarea id="input-b" class="text-input h-16" style="border-color:#0088FF;" placeholder="BLUE" oninput="handle3DInput()"></textarea>
+                <div class="w-full max-w-xs space-y-3 mt-4">
+                    <textarea id="input-r" class="text-input h-14" style="border-color:#FF004D;" placeholder="RED" oninput="handle3DInput()"></textarea>
+                    <textarea id="input-g" class="text-input h-14" style="border-color:#00FF41;" placeholder="GREEN" oninput="handle3DInput()"></textarea>
+                    <textarea id="input-b" class="text-input h-14" style="border-color:#0088FF;" placeholder="BLUE" oninput="handle3DInput()"></textarea>
                     <button id="btn-save-3d" class="btn-retro w-full mt-2" onclick="saveImage('3d')" disabled>Save</button>
                 </div>
             </div>
@@ -283,532 +288,4 @@
             <span>History</span>
         </div>
         <div class="nav-btn" onclick="navTo('tech')">
-            <svg style="width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span>Tech</span>
-        </div>
-        <div class="nav-btn" onclick="navTo('contacts')">
-            <svg style="width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            <span>Contacts</span>
-        </div>
-    </footer>
-
-    <!-- SCANNER OVERLAY -->
-    <div id="scanner-overlay">
-        <header class="nav-bar" style="border-bottom:0;">
-            <div class="nav-btn" onclick="ScannerEngine.close()"><span style="font-size:24px;">✕</span></div>
-            <h1 class="font-bold">SCANNER</h1>
-            <div style="width:40px;"></div>
-        </header>
-        
-        <div class="scan-viewport">
-            <video id="video-feed" autoplay playsinline muted></video>
-            <canvas id="freeze-frame"></canvas>
-            
-            <div class="viewfinder-box hunting" id="viewfinder-corners">
-                <div class="corner tl"></div><div class="corner tr"></div>
-                <div class="corner bl"></div><div class="corner br"></div>
-            </div>
-            
-            <div id="flash-fx" class="flash-fx"></div>
-        </div>
-        
-        <div class="scan-panel">
-            <div class="scan-res-grid">
-                <div class="scan-res-box">
-                    <div class="scan-indicator r" id="ind-r"></div>
-                    <textarea id="res-r" placeholder="RED" readonly></textarea>
-                </div>
-                <div class="scan-res-box">
-                    <div class="scan-indicator g" id="ind-g"></div>
-                    <textarea id="res-g" placeholder="GREEN" readonly></textarea>
-                </div>
-                <div class="scan-res-box">
-                    <div class="scan-indicator b" id="ind-b"></div>
-                    <textarea id="res-b" placeholder="BLUE" readonly></textarea>
-                </div>
-            </div>
-            <div class="flex gap-2 mt-4">
-                <button class="btn-retro flex-1" onclick="ScannerEngine.resetScan()">Reset</button>
-                <button class="btn-retro flex-1" id="btn-save-scan" onclick="saveImage('scan')" disabled>Save</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MENU OVERLAY -->
-    <div id="menu-overlay" style="position:absolute; inset:0; background:rgba(0,0,0,0.95); z-index:200; display:none; flex-direction:column; align-items:center; justify-content:center; gap:30px;">
-        <a href="#" onclick="toggleMenu()" style="font-size:24px; font-family:'Orbitron';">Home</a>
-        <button onclick="toggleMenu()" style="color:#666; margin-top:20px;">Close</button>
-    </div>
-
-</div>
-
-<script>
-// ==========================================
-// 1. NAVIGATION & UI LOGIC
-// ==========================================
-
-const UI = {
-    current: 'main',
-    history: ['main'],
-    screens: {
-        main: document.getElementById('scr-main'),
-        'create-opt': document.getElementById('scr-create-opt'),
-        'gen-ornament': document.getElementById('scr-gen-ornament'),
-        'gen-3d': document.getElementById('scr-gen-3d'),
-        gallery: document.getElementById('scr-gallery'),
-        history: document.getElementById('scr-history'),
-        tech: document.getElementById('scr-tech'),
-        contacts: document.getElementById('scr-contacts')
-    },
-
-    navTo(id) {
-        UI.history.push(UI.current);
-        UI.screens[UI.current].classList.remove('active');
-        UI.screens[id].classList.add('active');
-        UI.current = id;
-        document.getElementById('btn-back').style.visibility = (id === 'main') ? 'hidden' : 'visible';
-    },
-
-    navBack() {
-        if (UI.history.length <= 1) return;
-        const prev = UI.history.pop();
-        UI.screens[UI.current].classList.remove('active');
-        UI.screens[prev].classList.add('active');
-        UI.current = prev;
-        document.getElementById('btn-back').style.visibility = (prev === 'main') ? 'hidden' : 'visible';
-    }
-};
-
-const navTo = (id) => UI.navTo(id);
-const navBack = () => UI.navBack();
-const toggleMenu = () => document.getElementById('menu-overlay').classList.toggle('hidden');
-const toggleScanMode = () => {
-    document.getElementById('scan-split-actions').classList.toggle('btn-hidden');
-};
-
-// ==========================================
-// 2. SPRITE LIBRARY (Ornament Logic)
-// ==========================================
-const SPRITE_LIB = [
-    [73,42,28,127,28,42,73], [127,65,93,85,93,65,127], [85,62,99,42,99,62,85],
-    [42,119,34,73,34,119,42], [28,42,73,119,73,42,28], [0,62,34,42,46,32,63],
-    [15,1,29,5,52,16,64], [64,96,112,120,112,96,64], [76,102,51,25,51,102,76],
-    [119,69,117,0,87,81,119], [119,85,119,0,119,85,119], [119,65,93,20,93,65,119],
-    [62,73,93,127,93,73,62], [42,107,8,119,8,107,42], [8,42,8,119,8,42,8],
-    [28,8,65,99,65,8,28], [54,99,73,20,73,99,54], [63,31,15,7,3,1,0],
-    [127,63,31,15,7,3,1], [127,31,31,7,7,1,1], [119,17,93,68,119,17,89],
-    [119,21,87,80,127,17,89], [119,85,127,20,127,85,119], [87,80,87,0,117,5,117],
-    [95,80,87,65,117,5,125], [30,80,87,65,117,5,60], [91,80,11,93,104,5,109],
-    [42,99,8,93,8,99,42], [99,99,0,0,0,99,99], [99,99,99,99,99,99,99],
-    [119,93,99,34,99,93,119], [54,85,99,8,99,85,54], [91,73,109,36,54,18,91],
-    [127,8,107,34,107,8,127], [42,34,42,8,42,34,42], [56,43,9,127,72,106,14],
-    [60,72,81,99,69,9,30], [12,56,33,107,66,14,24], [32,126,34,34,34,63,2],
-    [100,94,51,42,102,61,19], [6,92,118,34,55,29,48], [28,62,119,99,119,62,28],
-    [62,99,73,93,73,99,62], [126,67,89,85,77,97,63], [54,85,107,28,107,85,54],
-    [127,119,99,73,99,119,127], [12,22,51,113,14,76,104], [107,73,8,127,8,73,107],
-    [0,62,34,42,58,2,126], [85,21,117,5,125,1,127], [52,102,71,85,71,102,52],
-    [8,8,42,34,54,20,93], [119,99,107,8,107,99,119], [62,34,107,8,107,34,62],
-    [73,62,34,107,34,62,73], [123,123,96,107,3,111,111], [91,27,96,107,3,108,109],
-    [0,63,32,62,2,126,0], [64,95,81,93,69,125,1], [51,51,102,102,76,76,25]
-];
-
-// ==========================================
-// 3. GENERATOR ENGINE
-// ==========================================
-
-const GenEngine = {
-    seed: Date.now(),
-    
-    // --- Ornament ---
-    handleOrnamentInput() {
-        const val = document.getElementById('input-ornament').value;
-        const actionsDiv = document.getElementById('ornament-actions');
-        const saveBtn = document.getElementById('btn-save-orn');
-        if (val.length > 0) {
-            actionsDiv.classList.remove('btn-hidden');
-            saveBtn.disabled = false;
-        } else {
-            actionsDiv.classList.add('btn-hidden');
-            saveBtn.disabled = true;
-        }
-        GenEngine.generateOrnament();
-    },
-    regenerateOrnament() {
-        GenEngine.seed = Math.random();
-        GenEngine.generateOrnament();
-    },
-    seededRandom() {
-        let x = Math.sin(GenEngine.seed++) * 10000;
-        return x - Math.floor(x);
-    },
-    generateOrnament() {
-        const text = document.getElementById('input-ornament').value;
-        const canvas = document.getElementById('canvas-ornament');
-        const ctx = canvas.getContext('2d');
-        if(!text) { ctx.fillStyle="#000"; ctx.fillRect(0,0,512,512); return; }
-        
-        try {
-            const qr = qrcode(0, 'M');
-            qr.addData(unescape(encodeURIComponent(text)));
-            qr.make();
-            const modCount = qr.getModuleCount();
-            const quietZone = 4;
-            const totalSize = modCount + quietZone * 2;
-            const cellSize = 512 / totalSize;
-
-            ctx.fillStyle = "#000"; ctx.fillRect(0,0,512,512);
-            ctx.globalCompositeOperation = "screen";
-
-            const gridR = GenEngine.buildGrid(totalSize);
-            const gridG = GenEngine.buildGrid(totalSize);
-
-            ctx.fillStyle = "#FF0000";
-            GenEngine.drawGrid(ctx, gridR, totalSize, cellSize);
-            ctx.fillStyle = "#00FF00";
-            GenEngine.drawGrid(ctx, gridG, totalSize, cellSize);
-            
-            // Data Layer (Blue)
-            ctx.fillStyle = "#0000FF";
-            for(let r=0; r<modCount; r++) {
-                for(let c=0; c<modCount; c++) {
-                    if(qr.isDark(r, c)) {
-                        ctx.fillRect((c+quietZone)*cellSize, (r+quietZone)*cellSize, cellSize, cellSize);
-                    }
-                }
-            }
-            ctx.globalCompositeOperation = "source-over";
-        } catch(e) {}
-    },
-    buildGrid(size) {
-        const grid = Array(size).fill(0).map(() => Array(size).fill(0));
-        const center = Math.floor(size/2);
-        const maxBlocks = Math.ceil((size/2 + 7)/7);
-        const octantMap = new Map();
-
-        for(let by=0; by<maxBlocks; by++) {
-            for(let bx=by; bx<maxBlocks; bx++) {
-                const patternIdx = Math.floor(GenEngine.seededRandom() * SPRITE_LIB.length);
-                const pattern = SPRITE_LIB[patternIdx];
-                const flipX = GenEngine.seededRandom() > 0.5;
-                const flipY = GenEngine.seededRandom() > 0.5;
-
-                for(let py=0; py<7; py++) {
-                    for(let px=0; px<7; px++) {
-                        let sX = flipX ? (6-px) : px;
-                        let sY = flipY ? (6-py) : py;
-                        if((pattern[sY] >> (6-sX)) & 1) {
-                            let xRel = (bx*7) + px - 3;
-                            let yRel = (by*7) + py - 3;
-                            if(xRel >= yRel && yRel >= 0) octantMap.set(`${xRel},${yRel}`, true);
-                        }
-                    }
-                }
-            }
-        }
-        octantMap.forEach((v, k) => {
-            const [x, y] = k.split(',').map(Number);
-            const points = [[x, y], [y, x], [-x, y], [-y, x], [x, -y], [y, -x], [-x, -y], [-y, -x]];
-            points.forEach(([px, py]) => {
-                const aX = center + px; const aY = center + py;
-                if(aX >= 0 && aX < size && aY >= 0 && aY < size) grid[aY][aX] = 1;
-            });
-        });
-        return grid;
-    },
-    drawGrid(ctx, grid, size, cell) {
-        for(let r=0; r<size; r++) for(let c=0; c<size; c++) if(grid[r][c]) ctx.fillRect(c*cell, r*cell, cell+0.5, cell+0.5);
-    },
-
-    // --- 3D / SCI Logic (From provided snippet) ---
-    handle3DInput() {
-        const r = document.getElementById('input-r').value;
-        const g = document.getElementById('input-g').value;
-        const b = document.getElementById('input-b').value;
-        document.getElementById('btn-save-3d').disabled = !(r && g && b);
-        GenEngine.generate3D();
-    },
-    generate3D() {
-        const texts = [document.getElementById('input-r').value, document.getElementById('input-g').value, document.getElementById('input-b').value];
-        if(!texts.some(t=>t)) return;
-        
-        let maxVer = 1;
-        texts.forEach(t => { if(t){ const tmp=qrcode(0,'M'); tmp.addData(t); tmp.make(); const v=Math.floor((tmp.getModuleCount()-17)/4); if(v>maxVer)maxVer=v; }});
-        
-        const canvas = document.getElementById('canvas-3d');
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle="#000"; ctx.fillRect(0,0,512,512);
-        ctx.globalCompositeOperation = "lighten";
-        
-        texts.forEach((text, i) => {
-            if(!text) return;
-            try {
-                const qr = qrcode(maxVer, 'M'); qr.addData(text); qr.make();
-                const mod = 512 / qr.getModuleCount();
-                ctx.fillStyle = i === 0 ? "#FF0000" : (i === 1 ? "#00FF00" : "#0000FF");
-                for(let r=0; r<qr.getModuleCount(); r++) for(let c=0; c<qr.getModuleCount(); c++) if(qr.isDark(r, c)) ctx.fillRect(c*mod, r*mod, mod, mod);
-            } catch(e) {}
-        });
-        ctx.globalCompositeOperation = "source-over";
-    }
-};
-
-const handleOrnamentInput = () => GenEngine.handleOrnamentInput();
-const regenerateOrnament = () => GenEngine.regenerateOrnament();
-const handle3DInput = () => GenEngine.handle3DInput();
-
-function saveImage(mode) {
-    let canvas;
-    if (mode === 'ornament') canvas = document.getElementById('canvas-ornament');
-    else if (mode === '3d') canvas = document.getElementById('canvas-3d');
-    else canvas = document.getElementById('freeze-frame'); // For scan result
-    
-    const link = document.createElement('a');
-    link.download = `ornament_${Date.now()}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
-}
-
-// ==========================================
-// 4. SCANNER ENGINE (From Provided Snippet)
-// ==========================================
-const ScannerEngine = {
-    state: {
-        scanning: false,
-        locked: { r: false, g: false, b: false },
-        results: { r: null, g: null, b: null },
-        activeSearch: false,
-        standardFailCount: 0,
-        AUTO_TRIGGER_THRESHOLD: 45,
-        time: 0,
-        channelIndex: 0,
-        config: {
-            R: { k1: 0.10, k2: 0.20, gain: 1.0, offset: 0 },
-            G: { k1: 0.18, k2: 0.33, gain: 1.0, offset: 0 },
-            B: { k1: 0.05, k2: 0.13, gain: 1.0, offset: 0 }
-        }
-    },
-    els: {},
-    
-    init() {
-        this.els = {
-            video: document.getElementById('video-feed'),
-            freeze: document.getElementById('freeze-frame'),
-            fCtx: document.getElementById('freeze-frame').getContext('2d', { willReadFrequently: true }),
-            canvas: document.getElementById('freeze-frame'), // Reuse freeze canvas for processing context
-            ctx: document.getElementById('freeze-frame').getContext('2d', { willReadFrequently: true }),
-            res: { r: document.getElementById('res-r'), g: document.getElementById('res-g'), b: document.getElementById('res-b') },
-            ind: { r: document.getElementById('ind-r'), g: document.getElementById('ind-g'), b: document.getElementById('ind-b') },
-            viewfinder: document.getElementById('viewfinder-corners'),
-            flash: document.getElementById('flash-fx')
-        };
-    },
-
-    open() {
-        document.getElementById('scanner-overlay').style.display = 'flex';
-        this.reset();
-    },
-    
-    close() {
-        this.state.scanning = false;
-        if(this.els.video.srcObject) this.els.video.srcObject.getTracks().forEach(t => t.stop());
-        document.getElementById('scanner-overlay').style.display = 'none';
-        document.getElementById('scan-split-actions').classList.add('btn-hidden');
-    },
-    
-    reset() {
-        this.state = { ...this.state, locked: {r:false, g:false, b:false}, activeSearch: false, standardFailCount: 0, time: 0, channelIndex: 0 };
-        Object.values(this.els.res).forEach(t => { t.value = ''; t.className = ''; });
-        Object.values(this.els.ind).forEach(i => i.classList.remove('active'));
-        Object.values(this.state.config).forEach(c => { c.gain=1.0; c.offset=0; });
-        document.getElementById('btn-save-scan').disabled = true;
-        this.els.viewfinder.classList.add('hunting');
-    },
-    
-    resetScan() {
-        this.reset();
-    },
-
-    async startCamera() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-            this.els.video.srcObject = stream;
-            this.els.video.play();
-            this.els.video.style.display = 'block';
-            this.els.freeze.style.display = 'none';
-            this.state.scanning = true;
-            this.loop();
-        } catch(e) { alert("Camera Error"); }
-    },
-
-    handleFile(e) {
-        const file = e.target.files[0]; if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            const img = new Image();
-            img.onload = () => {
-                this.els.freeze.width = 512; this.els.freeze.height = 512;
-                const s = Math.min(img.width, img.height);
-                this.els.fCtx.drawImage(img, (img.width-s)/2, (img.height-s)/2, s, s, 0, 0, 512, 512);
-                this.els.freeze.style.display = 'block';
-                this.els.video.style.display = 'none';
-                this.state.scanning = true;
-                this.loop();
-            };
-            img.src = ev.target.result;
-        };
-        reader.readAsDataURL(file);
-    },
-
-    loop() {
-        if (!this.state.scanning) return;
-        let sourceCopy = null;
-        
-        if (this.els.video.style.display !== 'none' && this.els.video.readyState >= 2) {
-            this.els.ctx.drawImage(this.els.video, 0, 0, 512, 512);
-            sourceCopy = this.els.ctx.getImageData(0, 0, 512, 512);
-        } else if (this.els.freeze.style.display !== 'none') {
-            sourceCopy = this.els.fCtx.getImageData(0, 0, 512, 512);
-        }
-
-        if (sourceCopy) {
-            if (this.state.standardFailCount > this.state.AUTO_TRIGGER_THRESHOLD && !this.state.activeSearch) {
-                this.state.activeSearch = true;
-                console.log("Switching to Active Search");
-            }
-
-            const channels = ['R', 'G', 'B'];
-            const activeChannels = channels.filter(ch => !this.state.locked[ch.toLowerCase()]);
-            
-            if (activeChannels.length > 0) {
-                const ch = activeChannels[this.state.channelIndex % activeChannels.length];
-                this.state.channelIndex++;
-                this.processChannel(sourceCopy, ch);
-            } else {
-                this.state.scanning = false; // All done
-                return;
-            }
-        }
-        requestAnimationFrame(() => this.loop());
-    },
-
-    processChannel(source, ch) {
-        const cfg = this.state.config[ch];
-        const idx = ['R', 'G', 'B'].indexOf(ch);
-        
-        let processedData;
-        if (this.state.activeSearch) {
-            this.state.time++;
-            cfg.gain = this.getOscParam(this.state.time, 100, 0.5, 3.5);
-            cfg.offset = this.getOscParam(this.state.time, 250, -80, 0);
-            
-            let tempData = new ImageData(new Uint8ClampedArray(source.data), 512, 512);
-            this.applySCIMath(tempData, ch, cfg);
-            processedData = this.applyBradley(tempData, 0);
-        } else {
-            this.state.standardFailCount++;
-            processedData = this.applyBradley(source, idx);
-        }
-
-        const code = jsQR(processedData.data, 512, 512, { inversionAttempts: "attemptBoth" });
-        if (code) this.lockChannel(ch, code.data);
-    },
-
-    lockChannel(ch, data) {
-        const key = ch.toLowerCase();
-        if (this.state.locked[key]) return;
-        
-        this.state.locked[key] = true;
-        this.state.results[key] = data;
-        this.state.config[ch].gain = 1.0; 
-        this.state.config[ch].offset = 0;
-        
-        this.playBeep();
-        this.flash();
-        this.els.viewfinder.classList.remove('hunting'); // Stop animation
-
-        const el = this.els.res[key];
-        const ind = this.els.ind[key];
-        
-        if(el) {
-            el.value = data;
-            el.classList.add('locked-' + key);
-        }
-        if(ind) ind.classList.add('active');
-
-        if (this.state.locked.r && this.state.locked.g && this.state.locked.b) {
-            this.state.scanning = false;
-            document.getElementById('btn-save-scan').disabled = false;
-        }
-    },
-
-    // --- Algorithms ---
-    applyBradley(imgData, chIdx) {
-        const w = imgData.width, h = imgData.height;
-        const input = imgData.data;
-        const output = new Uint8ClampedArray(w * h * 4);
-        const intImg = new Int32Array(w * h);
-        const s = Math.floor(w / 8), t = 15;
-        for (let y = 0; y < h; y++) {
-            let sum = 0;
-            for (let x = 0; x < w; x++) {
-                sum += input[(y * w + x) * 4 + chIdx];
-                intImg[y * w + x] = (y > 0 ? intImg[(y - 1) * w + x] : 0) + sum;
-            }
-        }
-        for (let y = 0; y < h; y++) {
-            for (let x = 0; x < w; x++) {
-                const x1 = Math.max(x - s, 0), x2 = Math.min(x + s, w - 1);
-                const y1 = Math.max(y - s, 0), y2 = Math.min(y + s, h - 1);
-                const count = (x2 - x1) * (y2 - y1);
-                const sum = intImg[y2 * w + x2] - intImg[y1 * w + x2] - intImg[y2 * w + x1] + intImg[y1 * w + x1];
-                const val = input[(y * w + x) * 4 + chIdx];
-                const res = (val * count < sum * (100 - t) / 100) ? 0 : 255;
-                const idx = (y * w + x) * 4;
-                output[idx] = output[idx+1] = output[idx+2] = res; output[idx+3] = 255;
-            }
-        }
-        return new ImageData(output, w, h);
-    },
-    applySCIMath(data, ch, cfg) {
-        const d = data.data;
-        for (let i = 0; i < d.length; i += 4) {
-            const r = d[i], g = d[i+1], b = d[i+2];
-            let target = ch === 'R' ? r : (ch === 'G' ? g : b);
-            let n1 = ch === 'R' ? g : (ch === 'G' ? r : r);
-            let n2 = ch === 'R' ? b : (ch === 'G' ? b : g);
-            let res = (target - (n1 * cfg.k1 + n2 * cfg.k2)) * cfg.gain + cfg.offset;
-            res = Math.max(0, Math.min(255, res));
-            d[i] = d[i+1] = d[i+2] = res; d[i+3] = 255;
-        }
-    },
-    getOscParam(t, period, min, max) {
-        const cycle = t % period;
-        const half = period / 2;
-        const pos = (cycle < half) ? cycle / half : (period - cycle) / half;
-        return min + pos * (max - min);
-    },
-    flash() {
-        const f = this.els.flash;
-        f.classList.add('active');
-        setTimeout(() => f.classList.remove('active'), 300);
-    },
-    playBeep() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const o = ctx.createOscillator(); const g = ctx.createGain();
-            o.connect(g); g.connect(ctx.destination);
-            o.frequency.value = 880; o.type = "square";
-            g.gain.setValueAtTime(0.1, ctx.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.00001, ctx.currentTime + 0.1);
-            o.start(); o.stop(ctx.currentTime + 0.1);
-        } catch(e){}
-    }
-};
-
-// Init
-document.addEventListener('DOMContentLoaded', () => {
-    ScannerEngine.init();
-});
-</script>
-</body>
-</html>
+            <svg style="width:24px; height:24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a
